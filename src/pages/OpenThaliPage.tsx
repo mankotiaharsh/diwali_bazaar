@@ -28,6 +28,7 @@ export default function OpenThaliPage() {
         <div className="envelope-card">
           <div className="envelope" aria-hidden><div className="seal">🪔</div></div>
           <p className="kicker">Opening your thali…</p>
+          {remote.slow && <p className="slow-hint">Lighting the diyas — this can take up to a minute the first time. Please keep this page open.</p>}
         </div>
       </div>
     );

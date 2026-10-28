@@ -35,5 +35,9 @@ export function fromThaliData(raw: unknown): ThaliData & { styles: StyleChoice }
   };
 }
 
+// Share links always use the official site address, even if the buyer paid on a preview or alternate domain
+// (the backend only accepts requests from its allowed origins). Falls back to the current site locally.
+const SITE_URL = (import.meta.env.VITE_PUBLIC_SITE_URL || window.location.origin).trim().replace(/\/+$/, "");
+
 /** Full shareable URL for a paid thali id. */
-export const thaliUrl = (id: string) => `${window.location.origin}/t/${id}`;
+export const thaliUrl = (id: string) => `${SITE_URL}/t/${id}`;

@@ -15,7 +15,12 @@ export default function SentPage() {
   return (
     <div className="page review-page">
       <div className="review-wrap">
-        {remote.state === "loading" && <p className="status-msg">Loading your thali…</p>}
+        {remote.state === "loading" && (
+          <p className="status-msg">
+            Loading your thali…
+            {remote.slow && <><br />The server is waking up, this can take up to a minute.</>}
+          </p>
+        )}
 
         {remote.state === "notfound" && (
           <div className="card status-card">
