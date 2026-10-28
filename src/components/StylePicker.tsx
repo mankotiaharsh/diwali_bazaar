@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Modal } from "./Modal";
 import { ITEM_BY_ID, MULTI_PICK, STYLE_OPTIONS, type StyledItemId } from "../data/items";
 import { useThali } from "../state/ThaliContext";
+import { usePublicConfig } from "../lib/api";
+import { priceLabel, priceOf } from "../lib/pricing";
 
 interface Props {
   itemId: StyledItemId | null;
@@ -14,6 +16,7 @@ interface Props {
  */
 export function StylePicker({ itemId, onClose }: Props) {
   const { has, toggle, styles, setStyles } = useThali();
+  const prices = usePublicConfig()?.item_prices;
   const [picked, setPicked] = useState<string[]>([]);
   const [focus, setFocus] = useState("");
 
@@ -32,6 +35,7 @@ export function StylePicker({ itemId, onClose }: Props) {
   const multi = MULTI_PICK[itemId];
   const onPlate = has(itemId);
   const focused = options.find((s) => s.id === focus) ?? options[0];
+  const pickedTotal = picked.reduce((sum, sid) => sum + priceOf(prices, `${itemId}:${sid}`), 0);
 
   const tap = (id: string) => {
     if (!multi) {
@@ -65,7 +69,9 @@ export function StylePicker({ itemId, onClose }: Props) {
               {selected && multi && <span className="tick" aria-hidden>✓</span>}
               <img src={s.image} alt="" />
               <span className="style-name">{s.name}</span>
-              <span className="style-price">Free</span>
+              <span className={`style-price${priceOf(prices, `${itemId}:${s.id}`) ? " is-paid" : ""}`}>
+                {priceLabel(priceOf(prices, `${itemId}:${s.id}`))}
+              </span>
             </button>
           );
         })}
@@ -73,7 +79,7 @@ export function StylePicker({ itemId, onClose }: Props) {
       {multi ? (
         <button className="btn btn-primary full" onClick={done} disabled={!picked.length && !onPlate}>
           {picked.length
-            ? `Add ${picked.length} to thali`
+            ? `Add ${picked.length} to thali${pickedTotal ? ` · ₹${pickedTotal}` : ""}`
             : onPlate ? `Remove ${name} from thali` : `Pick at least one ${name}`}
         </button>
       ) : (

@@ -45,13 +45,15 @@ export interface PublicConfig {
   cashfree_mode: "sandbox" | "production";
   payments_enabled: boolean;
   receipts_enabled: boolean;
+  /** Whole rupees per "item" or "item:design"; missing = free. */
+  item_prices: Record<string, number>;
 }
 
 export interface CheckoutInput {
   thali: ThaliData;
   phone: string;
   email: string;
-  /** Whole rupees, within the server's min/max. */
+  /** Shagun in whole rupees, within the server's min/max. Item prices are added by the server. */
   amount: number;
 }
 
@@ -59,7 +61,9 @@ export interface CheckoutResponse {
   order_id: string;
   payment_session_id: string;
   cashfree_mode: "sandbox" | "production";
-  amount: string;
+  amount: string; // total charged
+  items_total: string;
+  shagun: string;
   currency: string;
 }
 

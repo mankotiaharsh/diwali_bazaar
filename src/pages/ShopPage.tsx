@@ -10,12 +10,15 @@ import { Footer } from "../components/Footer";
 import { useToast } from "../components/Toast";
 import { BRAND } from "../config/brand";
 import { countdownLabel } from "../lib/countdown";
+import { usePublicConfig } from "../lib/api";
+import { priceLabel, priceOf, shelfBadge } from "../lib/pricing";
 
 export default function ShopPage() {
   const thali = useThali();
   const [picking, setPicking] = useState<StyledItemId | null>(null);
   const [noteOpen, setNoteOpen] = useState(false);
   const toast = useToast();
+  const prices = usePublicConfig()?.item_prices;
 
   const onPick = (item: ShopItem) => {
     if (item.kind === "soon") return toast.show(`${item.name} is coming soon ✨`);
@@ -23,7 +26,8 @@ export default function ShopPage() {
     if (isStyled(item.id)) return setPicking(item.id);
     const id = item.id as ItemId;
     thali.toggle(id);
-    toast.show(thali.has(id) ? `${item.name} removed` : `${item.name} added to thali`);
+    const price = priceOf(prices, id);
+    toast.show(thali.has(id) ? `${item.name} removed` : `${item.name} added · ${priceLabel(price)}`);
   };
 
   return (
@@ -47,6 +51,7 @@ export default function ShopPage() {
               image={item.kind === "free" && thali.has(item.id as ItemId) ? itemLooks(item.id as ItemId, thali.styles)[0].image : undefined}
               selected={item.id === "note" ? !!thali.note : item.kind === "free" && thali.has(item.id as ItemId)}
               onClick={() => onPick(item)}
+              badge={prices && item.kind === "free" ? shelfBadge(item.id as ItemId, prices) : undefined}
             />
           ))}
         </div>

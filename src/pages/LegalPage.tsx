@@ -53,7 +53,7 @@ const CONTENT: Record<"terms" | "privacy" | "refund" | "contact", LegalDoc> = {
   },
   terms: {
     title: "Terms & Conditions",
-    summary: `${name} lets you make a digital Diwali thali and send it as a link. Each link needs a one-time shagun of at least ${SHAGUN}, paid securely through Cashfree. Be kind with what you write, share links only with people you trust, and remember that nothing here is a physical product.`,
+    summary: `${name} lets you make a digital Diwali thali and send it as a link. Many items are free and some cost ₹10 each; each link also carries a shagun of at least ${SHAGUN}. Everything is paid together, securely through Cashfree. Be kind with what you write, share links only with people you trust, and remember that nothing here is a physical product.`,
     sections: [
       {
         heading: "1. About these terms",
@@ -67,7 +67,7 @@ const CONTENT: Record<"terms" | "privacy" | "refund" | "contact", LegalDoc> = {
         body: [
           `${name} lets you choose illustrated items (such as a diya, mithai, phool, pooja samagri and patakhe), add an optional message and, after paying a one-time shagun, receive a link that shows your digital Diwali thali to whoever opens it.`,
           [
-            "Building and previewing a thali is free. Creating its share link needs a one-time shagun: at least the minimum shown, or any higher amount you choose.",
+            "Building and previewing a thali is free. To create its share link you pay for any priced items you chose plus a shagun of at least the minimum shown (or any higher amount you choose).",
             "Every thali is a digital greeting only. No physical goods are sold, shipped or delivered, and the items shown are illustrations.",
             "Patakhe (fireworks) in the Service are digital animations only. If you celebrate with real fireworks, please follow local laws, any restrictions on timing or type, and safety guidance.",
             "No account or sign-up is required.",
@@ -78,7 +78,7 @@ const CONTENT: Record<"terms" | "privacy" | "refund" | "contact", LegalDoc> = {
         heading: "3. Payments",
         body: [
           [
-            `The minimum shagun for each thali link is ${SHAGUN} (Indian Rupees). You may choose to give more. The amount shown on the payment button is the amount charged.`,
+            `Item prices (Free or ₹10 each) are shown next to every item and listed in the bill before you pay. The minimum shagun for each thali link is ${SHAGUN} (Indian Rupees), and you may choose to give more. The total on the payment button (items plus shagun) is the amount charged.`,
             "Payments are processed by Cashfree Payments, a licensed payment aggregator. We never see or store your card, UPI or bank details.",
             "Your link is created only after Cashfree confirms the payment. If a payment fails, no link is created.",
             "A receipt and invoice are emailed to the address you provide after a successful payment.",
@@ -275,12 +275,12 @@ const CONTENT: Record<"terms" | "privacy" | "refund" | "contact", LegalDoc> = {
   },
   refund: {
     title: "Refund & Cancellation Policy",
-    summary: `Your shagun pays for a digital thali link that is delivered instantly. If you were charged but didn't get your link, or were charged twice, we'll make it right.`,
+    summary: `Your payment (any priced items plus your shagun) is for a digital thali link that is delivered instantly. If you were charged but didn't get your link, or were charged twice, we'll make it right.`,
     sections: [
       {
         heading: "1. What you pay for",
         body: [
-          `Each thali link needs a one-time shagun of at least ${SHAGUN}; you may choose to give more. It is a digital service: your link is created and shown to you immediately after Cashfree confirms the payment. Nothing is shipped.`,
+          `You pay once per thali link: the price of any priced items you chose (₹10 each; many are free) plus a shagun of at least ${SHAGUN}, which you may increase. It is a digital service: your link is created and shown to you immediately after Cashfree confirms the payment. Nothing is shipped.`,
         ],
       },
       {
@@ -298,7 +298,7 @@ const CONTENT: Record<"terms" | "privacy" | "refund" | "contact", LegalDoc> = {
       {
         heading: "4. When we refund",
         body: [
-          "We will refund the shagun you paid, in full, if:",
+          "We will refund the full amount you paid if:",
           [
             "money was deducted but your link was not created;",
             "you were charged a different amount from the one shown on the payment button;",

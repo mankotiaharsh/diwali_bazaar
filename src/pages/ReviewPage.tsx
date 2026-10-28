@@ -6,6 +6,7 @@ import { ITEM_BY_ID, NAME_MAX, isStyled, itemLooks } from "../data/items";
 import { ApiError, formatRupees, usePublicConfig } from "../lib/api";
 import { payForThali, type PayOutcome, type PayStep } from "../lib/payment";
 import { toThaliData } from "../lib/thali";
+import { billFor, billTotal, priceLabel } from "../lib/pricing";
 import { Footer } from "../components/Footer";
 import { NoteModal } from "../components/NoteModal";
 
@@ -23,7 +24,10 @@ function normalizePhone(raw: string): string | null {
   return /^[6-9]\d{9}$/.test(d) ? d : null;
 }
 
-const isEmail = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim());
+/** Bill lines shown before "Show all". */
+const BILL_PREVIEW = 5;
+
+const isEmail =(v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim());
 
 type Problem = Extract<PayOutcome, { orderId: string }> | { status: "error"; message: string };
 
@@ -39,6 +43,7 @@ export default function ReviewPage() {
   const [choice, setChoice] = useState<number | "custom" | null>(null);
   const [customAmount, setCustomAmount] = useState("");
   const [noteOpen, setNoteOpen] = useState(false);
+  const [billExpanded, setBillExpanded] = useState(false);
   const [step, setStep] = useState<PayStep | null>(null);
   const [problem, setProblem] = useState<Problem | null>(null);
 
@@ -56,6 +61,12 @@ export default function ReviewPage() {
   }
   const amountOk = amount !== null && amountError === null;
   const price = amountOk ? formatRupees(amount) : "";
+
+  // Display copy of the bill; the backend charges from its own price list.
+  const bill = billFor(t.items, t.styles, config?.item_prices);
+  const itemsTotal = billTotal(bill);
+  const billLineCount = bill.length + (t.note ? 1 : 0);
+  const total = amountOk ? itemsTotal + amount! : null;
 
   const busy = step !== null;
   const ready = from.trim() !== "" && to.trim() !== "" && cleanPhone !== null && emailOk && amountOk && !busy;
@@ -206,11 +217,49 @@ export default function ReviewPage() {
             </fieldset>
           )}
 
+          {config && (
+            <section className="bill" aria-label="Your bill">
+              <h2>You added</h2>
+              <ul id="bill-lines">
+                {(billExpanded ? bill : bill.slice(0, BILL_PREVIEW)).map((line) => (
+                  <li key={line.key}>
+                    <img src={line.image} alt="" />
+                    <span className="bill-name">
+                      {line.name}
+                      {line.name !== line.category && <small>{line.category}</small>}
+                    </span>
+                    <span className={`bill-price${line.price ? "" : " is-free"}`}>{priceLabel(line.price)}</span>
+                  </li>
+                ))}
+                {t.note && (billExpanded || bill.length < BILL_PREVIEW) && (
+                  <li>
+                    <span className="bill-name">Your note</span>
+                    <span className="bill-price is-free">Free</span>
+                  </li>
+                )}
+              </ul>
+              {billLineCount > BILL_PREVIEW && (
+                <button
+                  type="button"
+                  className="bill-toggle"
+                  aria-expanded={billExpanded}
+                  aria-controls="bill-lines"
+                  onClick={() => setBillExpanded((v) => !v)}
+                >
+                  {billExpanded ? "Show less ▴" : `Show all ${billLineCount} items ▾`}
+                </button>
+              )}
+              <div className="bill-row"><span>Items</span><span>{priceLabel(itemsTotal)}</span></div>
+              <div className="bill-row"><span>Shagun for {to.trim() || "them"}</span><span>{price || "—"}</span></div>
+              <div className="bill-total"><span>Total</span><strong>{total !== null ? formatRupees(total) : "—"}</strong></div>
+            </section>
+          )}
+
           {config && !config.payments_enabled ? (
             <p className="pay-problem" role="alert">Payments aren't available right now. Please try again later.</p>
           ) : (
             <button className="btn btn-primary full" disabled={!ready || !config} onClick={pay}>
-              {step ? STEP_LABEL[step] : `Pay ${price} shagun & create link 🪔`}
+              {step ? STEP_LABEL[step] : `Pay ${total !== null ? formatRupees(total) : ""} & create link 🪔`}
             </button>
           )}
 
