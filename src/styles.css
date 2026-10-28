@@ -325,6 +325,27 @@ a { color: inherit; }
   box-shadow: 0 0 0 4px #fde68a;
 }
 .slow-hint { margin: 0; max-width: 320px; text-align: center; font-size: .9rem; color: #e9d5ff; }
+.music-toggle {
+  position: fixed; top: 14px; right: 14px; z-index: 5; width: 44px; height: 44px; border-radius: 50%;
+  border: 1px solid rgba(253, 230, 138, .4); background: rgba(30, 27, 75, .6); font-size: 1.2rem;
+  display: grid; place-items: center; backdrop-filter: blur(4px);
+}
+.music-toggle:hover { background: rgba(30, 27, 75, .85); }
+.gifts {
+  width: 100%; background: rgba(255, 251, 235, .97); color: var(--ink); border-radius: var(--radius);
+  padding: 18px 16px 20px; box-shadow: var(--shadow); border-top: 6px solid var(--gold);
+}
+.gifts h2 { margin: 0 0 4px; text-align: center; font-family: var(--font-display); font-weight: 400; color: var(--brand); font-size: 1.25rem; }
+.gifts-sub { margin: 0 0 14px; text-align: center; color: var(--muted); font-weight: 500; }
+.gifts ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 10px; }
+.gifts li {
+  display: flex; flex-direction: column; align-items: center; gap: 4px; text-align: center;
+  background: #fff; border-radius: 14px; padding: 10px 6px; box-shadow: 0 2px 8px rgba(0,0,0,.06);
+  animation: pop .45s both ease-out;
+}
+.gifts li img { width: 56px; height: 56px; object-fit: contain; }
+.gift-name { font-weight: 600; font-size: .85rem; line-height: 1.2; }
+.gift-category { font-size: .72rem; color: var(--muted); }
 .kicker { font-family: var(--font-display); color: #fde68a; font-size: 1.2rem; margin: 0; text-align: center; }
 .reveal { width: 100%; max-width: 480px; display: flex; flex-direction: column; align-items: center; gap: 20px; position: relative; z-index: 1; }
 .note-card {

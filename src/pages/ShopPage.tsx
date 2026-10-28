@@ -10,6 +10,7 @@ import { Footer } from "../components/Footer";
 import { useToast } from "../components/Toast";
 import { BRAND } from "../config/brand";
 import { countdownLabel } from "../lib/countdown";
+import { playClick } from "../lib/sound";
 import { usePublicConfig } from "../lib/api";
 import { priceLabel, priceOf, shelfBadge } from "../lib/pricing";
 
@@ -21,6 +22,7 @@ export default function ShopPage() {
   const prices = usePublicConfig()?.item_prices;
 
   const onPick = (item: ShopItem) => {
+    playClick();
     if (item.kind === "soon") return toast.show(`${item.name} is coming soon ✨`);
     if (item.kind === "note") return setNoteOpen(true);
     if (isStyled(item.id)) return setPicking(item.id);

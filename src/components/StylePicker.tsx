@@ -4,6 +4,7 @@ import { ITEM_BY_ID, MULTI_PICK, STYLE_OPTIONS, type StyledItemId } from "../dat
 import { useThali } from "../state/ThaliContext";
 import { usePublicConfig } from "../lib/api";
 import { priceLabel, priceOf } from "../lib/pricing";
+import { playClick } from "../lib/sound";
 
 interface Props {
   itemId: StyledItemId | null;
@@ -38,6 +39,7 @@ export function StylePicker({ itemId, onClose }: Props) {
   const pickedTotal = picked.reduce((sum, sid) => sum + priceOf(prices, `${itemId}:${sid}`), 0);
 
   const tap = (id: string) => {
+    playClick();
     if (!multi) {
       setStyles(itemId, [id]);
       return onClose();
@@ -46,6 +48,7 @@ export function StylePicker({ itemId, onClose }: Props) {
   };
 
   const done = () => {
+    playClick();
     setStyles(itemId, picked);
     onClose();
   };

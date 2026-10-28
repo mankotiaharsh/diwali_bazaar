@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useRemoteThali } from "../lib/useRemoteThali";
+import happyUrl from "../assets/sounds/happy.mp3";
 import { ThaliPlate } from "../components/ThaliPlate";
+import { GiftList } from "../components/GiftList";
 import { BRAND } from "../config/brand";
 import { Footer } from "../components/Footer";
 
@@ -14,6 +16,26 @@ export default function OpenThaliPage() {
   const thali = remote.state === "ok" ? remote.thali : null;
   const [opened, setOpened] = useState(false);
   const [showNote, setShowNote] = useState(false);
+  const music = useRef<HTMLAudioElement | null>(null);
+  const [muted, setMuted] = useState(false);
+
+  // Background music loops while the thali is open; stop it when the visitor leaves the page.
+  useEffect(() => () => music.current?.pause(), []);
+
+  const open = () => {
+    setOpened(true);
+    // Started from the tap, so browsers allow it to play.
+    music.current ??= Object.assign(new Audio(happyUrl), { loop: true, volume: 0.5 });
+    void music.current.play().catch(() => {});
+  };
+
+  const toggleMusic = () => {
+    const audio = music.current;
+    if (!audio) return;
+    audio.muted = !muted;
+    if (audio.paused) void audio.play().catch(() => {});
+    setMuted(!muted);
+  };
 
   useEffect(() => {
     if (!opened || !thali) return;
@@ -70,12 +92,20 @@ export default function OpenThaliPage() {
           </div>
           <p className="kicker">Dear {to},</p>
           <h1 className="title">{from} sent you a Diwali thali</h1>
-          <button className="btn btn-primary big" onClick={() => setOpened(true)}>
+          <button className="btn btn-primary big" onClick={open}>
             Open your thali
           </button>
         </div>
       ) : (
         <div className="reveal">
+          <button
+            className="music-toggle"
+            onClick={toggleMusic}
+            aria-label={muted ? "Play music" : "Mute music"}
+            title={muted ? "Play music" : "Mute music"}
+          >
+            {muted ? "🔇" : "🔊"}
+          </button>
           <p className="kicker">Happy Diwali, {to}!</p>
           <ThaliPlate items={thali.items} styles={thali.styles} animate />
           {showNote && (
@@ -84,6 +114,7 @@ export default function OpenThaliPage() {
               <p className="sign">— with love, {from}</p>
             </div>
           )}
+          {showNote && <GiftList items={thali.items} styles={thali.styles} from={from} />}
           {showNote && (
             <Link to="/" className="btn btn-ghost pop-in">
               Send a thali with {BRAND.name} →
