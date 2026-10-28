@@ -1,5 +1,8 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 import { ThaliProvider } from "./state/ThaliContext";
+import { maskEvent } from "./lib/analytics";
 import ShopPage from "./pages/ShopPage";
 import ReviewPage from "./pages/ReviewPage";
 import OpenThaliPage from "./pages/OpenThaliPage";
@@ -24,6 +27,8 @@ export default function App() {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </BrowserRouter>
+      <Analytics beforeSend={maskEvent} />
+      <SpeedInsights beforeSend={maskEvent} />
     </ThaliProvider>
   );
 }

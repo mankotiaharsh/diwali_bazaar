@@ -170,7 +170,7 @@ const CONTENT: Record<"terms" | "privacy" | "refund" | "contact", LegalDoc> = {
   },
   privacy: {
     title: "Privacy Policy",
-    summary: `${name} has no accounts and no tracking. When you pay for a thali we store it, with your mobile number and email, so its link works and we can send your receipt. Anyone with the link can see the thali, but never your contact details. Payments are handled by Cashfree, so we never see your card or UPI details.`,
+    summary: `${name} has no accounts, no cookies and no ad tracking; we only count visits anonymously. When you pay for a thali we store it, with your mobile number and email, so its link works and we can send your receipt. Anyone with the link can see the thali, but never your contact details. Payments are handled by Cashfree, so we never see your card or UPI details.`,
     sections: [
       {
         heading: "1. About this policy",
@@ -204,9 +204,10 @@ const CONTENT: Record<"terms" | "privacy" | "refund" | "contact", LegalDoc> = {
       {
         heading: "4. Information collected automatically",
         body: [
-          "We do not use cookies, analytics, advertising or tracking tools. However, like any website, some technical information is processed by the services that make the site work:",
+          "We do not use cookies, advertising or cross-site tracking. Like any website, some technical information is processed by the services that make the site work:",
           [
             "Hosting. The website and its server are hosted by third-party providers (such as Vercel). They may record standard server logs such as IP address, date and time, browser type and the address requested, for security and reliability.",
+            "Visit statistics. We use Vercel Web Analytics and Speed Insights to count page visits and measure how fast pages load. They use no cookies, do not identify you, and report only aggregated data such as page, country, browser and device type. Thali link codes are removed before anything is sent.",
             "Fonts. Our fonts are loaded from Google Fonts, so your browser connects to Google's servers, which can see your IP address and browser details.",
           ],
           "These providers act under their own privacy policies.",

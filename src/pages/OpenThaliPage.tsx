@@ -116,9 +116,12 @@ export default function OpenThaliPage() {
           )}
           {showNote && <GiftList items={thali.items} styles={thali.styles} from={from} />}
           {showNote && (
-            <Link to="/" className="btn btn-ghost pop-in">
-              Send a thali with {BRAND.name} →
-            </Link>
+            <div className="make-own pop-in">
+              <p className="make-own-title">💌 Want to make your own thali?</p>
+              <p>Fill a Diwali thali for someone you love and share it with them in a minute.</p>
+              <Link to="/" className="btn btn-primary">Make your own thali 🪔</Link>
+              <span className="make-own-brand">with {BRAND.name}</span>
+            </div>
           )}
           <div className="sky" aria-hidden>
             {Array.from({ length: 7 }).map((_, i) => (
