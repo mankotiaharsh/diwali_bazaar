@@ -23,9 +23,12 @@ interface ThaliApi extends ThaliState {
 const KEY = "diwali-thali:v1";
 const EMPTY: ThaliState = { items: [], styles: DEFAULT_STYLES, note: "", from: "", to: "" };
 
+// The basket lives only as long as the tab: it survives a refresh and the Cashfree redirect,
+// but every new visit starts with an empty thali the visitor fills by their own choice.
 function load(): ThaliState {
   try {
-    const raw = localStorage.getItem(KEY);
+    localStorage.removeItem(KEY); // baskets saved long-term by earlier versions
+    const raw = sessionStorage.getItem(KEY);
     if (!raw) return EMPTY;
     const saved = JSON.parse(raw);
     // Drop items that no longer exist on the shelf and fill in any new style defaults.
@@ -47,7 +50,7 @@ export function ThaliProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     try {
-      localStorage.setItem(KEY, JSON.stringify(state));
+      sessionStorage.setItem(KEY, JSON.stringify(state));
     } catch {
       /* storage unavailable — keep working in memory */
     }

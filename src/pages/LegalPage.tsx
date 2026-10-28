@@ -197,7 +197,7 @@ const CONTENT: Record<"terms" | "privacy" | "refund" | "contact", LegalDoc> = {
         body: [
           [
             "On our servers. When you pay, your thali (names, items and message), your mobile number, your email address and the payment reference are stored in our database so the link can be opened. The link itself contains only a short random code.",
-            "In your browser. While you build a thali, your progress is saved in your browser's local storage on your own device, so it isn't lost if you refresh. It is not sent to us. You can remove it with \"Start over\" or by clearing your browser's site data.",
+            "In your browser tab. While you build a thali, your progress is kept in your browser for that tab only, so it isn't lost if you refresh. It is not sent to us until you pay, and it is cleared when you close the tab or tap \"Start over\".",
           ],
         ],
       },
@@ -233,7 +233,7 @@ const CONTENT: Record<"terms" | "privacy" | "refund" | "contact", LegalDoc> = {
       {
         heading: "7. Data retention",
         body: [
-          "Paid thalis are kept so their links keep working, and payment records are kept as long as required for accounting, tax and legal purposes. Unpaid checkouts are kept only as long as needed to confirm whether they were paid. Data saved in your browser stays until you clear it. You can ask us to delete a thali at any time (see section 9).",
+          "Paid thalis are kept so their links keep working, and payment records are kept as long as required for accounting, tax and legal purposes. Unpaid checkouts are kept only as long as needed to confirm whether they were paid. Data kept in your browser tab is cleared when you close it. You can ask us to delete a thali at any time (see section 9).",
         ],
       },
       {
@@ -247,7 +247,7 @@ const CONTENT: Record<"terms" | "privacy" | "refund" | "contact", LegalDoc> = {
         body: [
           [
             "You choose what to enter: the message is optional and you can use nicknames. The mobile number and email are required only to make the payment and send your receipt.",
-            "You can delete the thali saved in your browser at any time with \"Start over\" or by clearing site data.",
+            "An unpaid thali in your browser disappears when you close the tab, or at any time with \"Start over\".",
             "If you shared a link by mistake, or want a thali taken down, write to us with the link and we will remove it.",
           ],
           `Subject to applicable law, including the Digital Personal Data Protection Act, 2023, you may contact us at ${contactEmail} to ask about, correct or erase any personal data relating to you, or to raise a grievance.`,
