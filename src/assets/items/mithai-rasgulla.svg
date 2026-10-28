@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs>
+    <radialGradient id="r" cx="35%" cy="30%"><stop offset="0" stop-color="#ffffff"/><stop offset=".7" stop-color="#fef9e7"/><stop offset="1" stop-color="#e7dcc0"/></radialGradient>
+    <linearGradient id="bowl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c2410c"/><stop offset="1" stop-color="#7c2d12"/></linearGradient>
+    <g id="b"><circle r="20" fill="url(#r)" stroke="#d6c7a1" stroke-width="1.5"/><ellipse cx="-7" cy="-8" rx="5" ry="3" fill="#fff"/></g>
+  </defs>
+  <ellipse cx="100" cy="112" rx="72" ry="16" fill="#fef3c7" opacity=".9"/>
+  <use href="#b" x="74" y="108"/><use href="#b" x="126" y="108"/><use href="#b" x="100" y="114"/>
+  <use href="#b" x="88" y="90"/><use href="#b" x="114" y="90"/>
+  <path d="M26 110 Q100 120 174 110 Q166 166 100 170 Q34 166 26 110Z" fill="url(#bowl)" stroke="#431407" stroke-width="2"/>
+  <path d="M26 110 Q100 122 174 110" fill="none" stroke="#fdba74" stroke-width="3"/>
+  <g fill="#fde68a"><circle cx="64" cy="140" r="3"/><circle cx="100" cy="148" r="3"/><circle cx="136" cy="140" r="3"/></g>
+</svg>

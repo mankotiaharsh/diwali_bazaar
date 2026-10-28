@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs>
+    <radialGradient id="c" cx="35%" cy="30%"><stop offset="0" stop-color="#a16207"/><stop offset="1" stop-color="#3b1a0a"/></radialGradient>
+    <radialGradient id="w" cx="35%" cy="30%"><stop offset="0" stop-color="#fffbeb"/><stop offset="1" stop-color="#d6c7a1"/></radialGradient>
+  </defs>
+  <path d="M24 70 L100 44 L176 70 L176 150 L100 176 L24 150Z" fill="#7f1d1d"/>
+  <path d="M34 76 L100 54 L166 76 L100 98Z" fill="#fde68a"/>
+  <g>
+    <circle cx="70" cy="70" r="12" fill="url(#c)"/><circle cx="100" cy="62" r="12" fill="url(#w)"/><circle cx="130" cy="70" r="12" fill="url(#c)"/>
+    <circle cx="85" cy="82" r="12" fill="url(#w)"/><circle cx="115" cy="82" r="12" fill="url(#c)"/>
+    <path d="M64 66 q6 -4 12 0 M124 66 q6 -4 12 0" stroke="#fde68a" stroke-width="2" fill="none"/>
+  </g>
+  <path d="M24 70 L100 98 L176 70 L176 150 L100 176 L24 150Z" fill="#be123c" stroke="#7f1d1d" stroke-width="2"/>
+  <path d="M100 98 V176" stroke="#7f1d1d" stroke-width="2"/>
+  <path d="M62 84 V162 M138 84 V162" stroke="#facc15" stroke-width="6"/>
+  <path d="M24 110 L100 138 L176 110" fill="none" stroke="#facc15" stroke-width="6"/>
+  <g transform="translate(138 112)" fill="#facc15"><path d="M0 0 C-16 -16 -26 -2 0 0 C26 -2 16 -16 0 0Z"/><circle r="5" fill="#eab308"/></g>
+</svg>

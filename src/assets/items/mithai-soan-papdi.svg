@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs>
+    <linearGradient id="box" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#dc2626"/><stop offset="1" stop-color="#991b1b"/></linearGradient>
+    <linearGradient id="sp" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fef3c7"/><stop offset="1" stop-color="#fbbf24"/></linearGradient>
+    <g id="c">
+      <rect x="-20" y="-16" width="40" height="32" rx="3" fill="url(#sp)" stroke="#d97706" stroke-width="1.5"/>
+      <path d="M-16 -8 h32 M-16 0 h32 M-16 8 h32" stroke="#f59e0b" stroke-width="1.2" opacity=".7"/>
+    </g>
+  </defs>
+  <path d="M30 96 L100 72 L170 96 L170 150 L100 176 L30 150Z" fill="#7f1d1d"/>
+  <path d="M30 96 L100 120 L170 96 L170 150 L100 176 L30 150Z" fill="url(#box)" stroke="#7f1d1d" stroke-width="2"/>
+  <path d="M100 120 V176" stroke="#7f1d1d" stroke-width="2"/>
+  <use href="#c" x="78" y="96"/><use href="#c" x="122" y="96"/><use href="#c" x="100" y="86"/>
+  <path d="M40 132 L100 154 L160 132" fill="none" stroke="#facc15" stroke-width="4"/>
+  <g transform="translate(100 160)"><circle r="8" fill="#facc15"/><circle r="4" fill="#dc2626"/></g>
+</svg>

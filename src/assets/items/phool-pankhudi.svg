@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs>
+    <linearGradient id="bowl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fde68a"/><stop offset=".5" stop-color="#f59e0b"/><stop offset="1" stop-color="#92400e"/></linearGradient>
+    <path id="r" d="M0 0 C-10 -6 -10 -18 0 -20 C10 -18 10 -6 0 0Z" fill="#e11d48" stroke="#9f1239" stroke-width="1"/>
+    <path id="o" d="M0 0 C-8 -5 -8 -14 0 -16 C8 -14 8 -5 0 0Z" fill="#f97316" stroke="#c2410c" stroke-width="1"/>
+  </defs>
+  <use href="#r" transform="translate(70 110) rotate(-30)"/><use href="#o" transform="translate(84 102) rotate(20)"/>
+  <use href="#r" transform="translate(100 98) rotate(10)"/><use href="#r" transform="translate(118 104) rotate(60)"/>
+  <use href="#o" transform="translate(132 110) rotate(-20)"/><use href="#r" transform="translate(90 112) rotate(150)"/>
+  <use href="#o" transform="translate(110 114) rotate(200)"/><use href="#r" transform="translate(60 120) rotate(100)"/>
+  <use href="#r" transform="translate(140 120) rotate(-110)"/>
+  <path d="M34 116 Q100 108 166 116 Q156 164 100 168 Q44 164 34 116Z" fill="url(#bowl)" stroke="#78350f" stroke-width="2"/>
+  <path d="M34 116 Q100 126 166 116" fill="none" stroke="#fef3c7" stroke-width="3"/>
+  <use href="#r" transform="translate(150 150) rotate(40)"/><use href="#o" transform="translate(44 156) rotate(-60)"/>
+</svg>

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs>
+    <radialGradient id="l" cx="38%" cy="32%"><stop offset="0" stop-color="#fde68a"/><stop offset=".55" stop-color="#f59e0b"/><stop offset="1" stop-color="#c2410c"/></radialGradient>
+    <linearGradient id="pl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f3f4f6"/><stop offset="1" stop-color="#9ca3af"/></linearGradient>
+    <g id="d"><circle r="26" fill="url(#l)"/><g fill="#fff7ed" opacity=".7"><circle cx="-8" cy="-6" r="2"/><circle cx="6" cy="-12" r="1.6"/><circle cx="10" cy="4" r="2"/><circle cx="-4" cy="10" r="1.6"/><circle cx="-14" cy="6" r="1.4"/></g></g>
+  </defs>
+  <ellipse cx="100" cy="150" rx="88" ry="30" fill="url(#pl)" stroke="#6b7280" stroke-width="2"/>
+  <ellipse cx="100" cy="146" rx="70" ry="20" fill="#e5e7eb"/>
+  <use href="#d" x="62" y="134"/><use href="#d" x="100" y="140"/><use href="#d" x="138" y="134"/>
+  <use href="#d" x="80" y="104"/><use href="#d" x="120" y="104"/><use href="#d" x="100" y="76"/>
+  <path d="M92 62 l10 -6 l6 8 l-10 5z" fill="#d1d5db" opacity=".9"/>
+  <g fill="#16a34a"><circle cx="96" cy="58" r="2.5"/><circle cx="104" cy="56" r="2"/></g>
+</svg>

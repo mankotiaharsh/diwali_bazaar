@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs>
+    <linearGradient id="pl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f3f4f6"/><stop offset="1" stop-color="#9ca3af"/></linearGradient>
+    <g id="j" fill="none" stroke-linecap="round">
+      <path d="M0 0 m-4 0 a4 4 0 1 1 8 0 a9 9 0 1 1 -18 0 a14 14 0 1 1 28 0 a19 19 0 1 1 -38 0 a24 24 0 1 1 48 0" stroke="#c2410c" stroke-width="9"/>
+      <path d="M0 0 m-4 0 a4 4 0 1 1 8 0 a9 9 0 1 1 -18 0 a14 14 0 1 1 28 0 a19 19 0 1 1 -38 0 a24 24 0 1 1 48 0" stroke="#f97316" stroke-width="6"/>
+      <path d="M0 0 m-4 0 a4 4 0 1 1 8 0 a9 9 0 1 1 -18 0 a14 14 0 1 1 28 0 a19 19 0 1 1 -38 0 a24 24 0 1 1 48 0" stroke="#fdba74" stroke-width="2" opacity=".8"/>
+    </g>
+  </defs>
+  <ellipse cx="100" cy="150" rx="88" ry="30" fill="url(#pl)" stroke="#6b7280" stroke-width="2"/>
+  <ellipse cx="100" cy="146" rx="70" ry="20" fill="#e5e7eb"/>
+  <use href="#j" transform="translate(70 128) scale(1 .55)"/>
+  <use href="#j" transform="translate(130 128) scale(1 .55)"/>
+  <use href="#j" transform="translate(100 104) scale(1 .55)"/>
+  <use href="#j" transform="translate(100 80) scale(.9 .5)"/>
+  <g fill="#fde68a" opacity=".8"><circle cx="86" cy="96" r="2"/><circle cx="118" cy="120" r="2"/><circle cx="62" cy="124" r="1.6"/><circle cx="104" cy="74" r="1.6"/></g>
+</svg>

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs>
+    <linearGradient id="br" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#a16207"/><stop offset=".45" stop-color="#facc15"/><stop offset=".6" stop-color="#fef3c7"/><stop offset="1" stop-color="#854d0e"/></linearGradient>
+  </defs>
+  <g>
+    <animateTransform attributeName="transform" type="rotate" values="-8 100 60;8 100 60;-8 100 60" dur="1.2s" repeatCount="indefinite"/>
+    <path d="M94 16 h12 l4 30 h-20z" fill="url(#br)" stroke="#713f12" stroke-width="2"/>
+    <circle cx="100" cy="14" r="8" fill="url(#br)" stroke="#713f12" stroke-width="2"/>
+    <path d="M76 52 h48 l4 10 h-56z" fill="url(#br)" stroke="#713f12" stroke-width="2"/>
+    <path d="M74 62 Q72 120 46 150 H154 Q128 120 126 62Z" fill="url(#br)" stroke="#713f12" stroke-width="2"/>
+    <path d="M44 150 h112 v10 h-112z" fill="#a16207" stroke="#713f12" stroke-width="2"/>
+    <path d="M60 128 h80" stroke="#713f12" stroke-width="2" opacity=".5"/>
+    <circle cx="100" cy="172" r="9" fill="#854d0e"/>
+  </g>
+  <g stroke="#facc15" stroke-width="3" stroke-linecap="round" opacity=".8"><path d="M30 120 l-12 -6 M28 140 h-14 M170 120 l12 -6 M172 140 h14"/></g>
+</svg>

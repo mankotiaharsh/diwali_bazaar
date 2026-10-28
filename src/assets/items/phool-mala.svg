@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs>
+    <g id="o"><circle r="11" fill="#f97316"/><circle r="6" fill="#fb923c"/><circle r="2.5" fill="#c2410c"/></g>
+    <g id="y"><circle r="11" fill="#facc15"/><circle r="6" fill="#fde047"/><circle r="2.5" fill="#ca8a04"/></g>
+  </defs>
+  <use href="#o" x="40" y="40"/><use href="#y" x="38" y="62"/><use href="#o" x="40" y="84"/><use href="#y" x="46" y="106"/>
+  <use href="#o" x="56" y="126"/><use href="#y" x="70" y="144"/><use href="#o" x="88" y="156"/><use href="#y" x="100" y="160"/>
+  <use href="#o" x="112" y="156"/><use href="#y" x="130" y="144"/><use href="#o" x="144" y="126"/><use href="#y" x="154" y="106"/>
+  <use href="#o" x="160" y="84"/><use href="#y" x="162" y="62"/><use href="#o" x="160" y="40"/>
+  <path d="M100 168 V188" stroke="#dc2626" stroke-width="3"/>
+  <circle cx="100" cy="190" r="5" fill="#dc2626"/>
+  <path d="M40 30 Q100 6 160 30" fill="none" stroke="#dc2626" stroke-width="3"/>
+</svg>

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs>
+    <radialGradient id="g"><stop offset="0" stop-color="#fffbeb"/><stop offset=".4" stop-color="#fde047" stop-opacity=".7"/><stop offset="1" stop-color="#fde047" stop-opacity="0"/></radialGradient>
+  </defs>
+  <circle cx="100" cy="100" r="80" fill="url(#g)">
+    <animate attributeName="r" values="70;84;70" dur=".7s" repeatCount="indefinite"/>
+  </circle>
+  <g>
+    <animateTransform attributeName="transform" type="rotate" from="0 100 100" to="360 100 100" dur="1s" repeatCount="indefinite"/>
+    <g fill="none" stroke-linecap="round" stroke-width="4">
+      <path d="M100 52 Q140 40 160 70" stroke="#fde047"/>
+      <path d="M148 100 Q160 140 130 160" stroke="#fb923c"/>
+      <path d="M100 148 Q60 160 40 130" stroke="#fde047"/>
+      <path d="M52 100 Q40 60 70 40" stroke="#fb923c"/>
+    </g>
+    <circle cx="100" cy="100" r="40" fill="#16a34a" stroke="#14532d" stroke-width="3"/>
+    <circle cx="100" cy="100" r="32" fill="none" stroke="#dc2626" stroke-width="8"/>
+    <circle cx="100" cy="100" r="22" fill="none" stroke="#facc15" stroke-width="6"/>
+    <circle cx="100" cy="100" r="12" fill="#dc2626"/>
+    <circle cx="100" cy="60" r="6" fill="#fff"/>
+  </g>
+</svg>

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs>
+    <linearGradient id="b" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fde68a"/><stop offset=".5" stop-color="#f59e0b"/><stop offset="1" stop-color="#92400e"/></linearGradient>
+    <ellipse id="g" rx="5" ry="2.4" fill="#fffbeb" stroke="#d6c7a1" stroke-width=".8"/>
+  </defs>
+  <path d="M38 104 Q100 62 162 104" fill="#fef9c3"/>
+  <use href="#g" transform="translate(70 96) rotate(20)"/><use href="#g" transform="translate(84 88) rotate(-30)"/><use href="#g" transform="translate(98 82) rotate(10)"/>
+  <use href="#g" transform="translate(112 86) rotate(50)"/><use href="#g" transform="translate(126 92) rotate(-15)"/><use href="#g" transform="translate(92 96) rotate(70)"/>
+  <use href="#g" transform="translate(108 96) rotate(-60)"/><use href="#g" transform="translate(120 100) rotate(30)"/><use href="#g" transform="translate(78 100) rotate(-10)"/>
+  <use href="#g" transform="translate(100 90) rotate(90)"/><use href="#g" transform="translate(140 98) rotate(20)"/><use href="#g" transform="translate(60 100) rotate(-40)"/>
+  <g fill="#dc2626"><circle cx="96" cy="88" r="2"/><circle cx="116" cy="94" r="2"/><circle cx="82" cy="94" r="1.6"/></g>
+  <path d="M34 104 Q100 96 166 104 Q158 150 100 154 Q42 150 34 104Z" fill="url(#b)" stroke="#78350f" stroke-width="2"/>
+  <path d="M34 104 Q100 114 166 104" fill="none" stroke="#fef3c7" stroke-width="3"/>
+  <use href="#g" transform="translate(150 160) rotate(30)"/><use href="#g" transform="translate(54 164) rotate(-20)"/><use href="#g" transform="translate(70 170) rotate(60)"/>
+</svg>

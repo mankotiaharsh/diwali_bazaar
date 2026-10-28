@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs>
+    <radialGradient id="t" cx="35%" cy="30%"><stop offset="0" stop-color="#92400e"/><stop offset=".6" stop-color="#451a03"/><stop offset="1" stop-color="#1c0a02"/></radialGradient>
+    <g id="tr">
+      <path d="M-24 8 L-20 28 H20 L24 8Z" fill="#d4af37" stroke="#a16207" stroke-width="1.5"/>
+      <path d="M-14 10 V28 M0 10 V28 M14 10 V28" stroke="#a16207" stroke-width="1.5"/>
+      <circle r="22" fill="url(#t)"/>
+      <ellipse cx="-8" cy="-9" rx="6" ry="4" fill="#fde68a" opacity=".35"/>
+    </g>
+  </defs>
+  <use href="#tr" x="62" y="128"/>
+  <use href="#tr" x="138" y="128"/>
+  <use href="#tr" x="100" y="96"/>
+  <g fill="#fbbf24"><circle cx="58" cy="114" r="2"/><circle cx="66" cy="118" r="2"/><circle cx="96" cy="80" r="2"/><circle cx="104" cy="84" r="2"/></g>
+  <path d="M126 112 q12 -10 24 0" stroke="#fef3c7" stroke-width="3" fill="none" stroke-linecap="round"/>
+</svg>

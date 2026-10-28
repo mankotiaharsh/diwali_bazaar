@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <defs>
+    <radialGradient id="glow"><stop offset="0" stop-color="#fde047" stop-opacity=".7"/><stop offset="1" stop-color="#fde047" stop-opacity="0"/></radialGradient>
+    <linearGradient id="clay" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ea580c"/><stop offset="1" stop-color="#7c2d12"/></linearGradient>
+  </defs>
+  <circle cx="60" cy="48" r="36" fill="url(#glow)">
+    <animate attributeName="r" values="32;38;32" dur="1.6s" repeatCount="indefinite"/>
+  </circle>
+  <path d="M60 18 C72 36 70 52 60 58 C50 52 48 36 60 18Z" fill="#f97316">
+    <animateTransform attributeName="transform" type="scale" values="1 1;1.04 .94;1 1" dur=".9s" repeatCount="indefinite" additive="sum"/>
+  </path>
+  <path d="M60 30 C66 42 66 50 60 54 C54 50 54 42 60 30Z" fill="#fde047"/>
+  <path d="M14 66 Q60 64 106 66 Q98 96 60 98 Q22 96 14 66Z" fill="url(#clay)"/>
+  <path d="M14 66 Q60 76 106 66" fill="none" stroke="#fdba74" stroke-width="3"/>
+  <g fill="#fde68a"><circle cx="40" cy="84" r="3"/><circle cx="60" cy="88" r="3"/><circle cx="80" cy="84" r="3"/></g>
+</svg>

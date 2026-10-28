@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs>
+    <linearGradient id="bowl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a16207"/><stop offset="1" stop-color="#713f12"/></linearGradient>
+    <path id="kaju" d="M-14 -4 C-14 -16 6 -18 12 -8 C16 0 10 10 2 8 C-2 7 -2 2 2 0 C-4 -2 -10 2 -14 -4Z" fill="#f5deb3" stroke="#c8a165" stroke-width="1.5"/>
+    <ellipse id="badam" rx="13" ry="7" fill="#b45309" stroke="#78350f" stroke-width="1.5"/>
+    <ellipse id="kishmish" rx="6" ry="4" fill="#a16207" stroke="#713f12" stroke-width="1"/>
+    <ellipse id="pista" rx="9" ry="6" fill="#bef264" stroke="#65a30d" stroke-width="1.5"/>
+  </defs>
+  <path d="M30 112 Q100 104 170 112 Q160 164 100 168 Q40 164 30 112Z" fill="#000" opacity=".12" transform="translate(0 5)"/>
+  <use href="#kaju" transform="translate(70 100) rotate(-15)"/>
+  <use href="#badam" transform="translate(100 92) rotate(20)"/>
+  <use href="#kaju" transform="translate(128 102) rotate(30)"/>
+  <use href="#pista" transform="translate(86 108) rotate(-30)"/>
+  <use href="#badam" transform="translate(112 112) rotate(-25)"/>
+  <use href="#kishmish" transform="translate(58 112)"/>
+  <use href="#kishmish" transform="translate(146 114) rotate(40)"/>
+  <use href="#pista" transform="translate(132 88) rotate(10)"/>
+  <path d="M30 112 Q100 104 170 112 Q160 164 100 168 Q40 164 30 112Z" fill="url(#bowl)" stroke="#422006" stroke-width="2"/>
+  <path d="M30 112 Q100 122 170 112" fill="none" stroke="#fbbf24" stroke-width="3"/>
+  <g fill="none" stroke="#fbbf24" stroke-width="2" opacity=".7"><path d="M60 138 q10 -8 20 0 q10 8 20 0 q10 -8 20 0 q10 8 20 0"/></g>
+</svg>

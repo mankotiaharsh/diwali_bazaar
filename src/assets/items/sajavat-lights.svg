@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs>
+    <radialGradient id="glow"><stop offset="0" stop-color="#fff" stop-opacity=".9"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+    <g id="b">
+      <circle cy="10" r="16" fill="url(#glow)" opacity=".7"/>
+      <rect x="-4" y="-6" width="8" height="7" rx="1.5" fill="#57534e"/>
+      <path d="M-7 1 Q-8 16 0 20 Q8 16 7 1Z" fill="currentColor"/>
+      <ellipse cx="-2" cy="7" rx="2" ry="4" fill="#fff" opacity=".6"/>
+    </g>
+  </defs>
+  <path d="M10 60 Q55 110 100 70 Q145 30 190 80" fill="none" stroke="#14532d" stroke-width="3"/>
+  <path d="M10 120 Q55 170 100 130 Q145 90 190 140" fill="none" stroke="#14532d" stroke-width="3"/>
+  <g>
+    <use href="#b" x="30" y="78" color="#facc15"/><use href="#b" x="60" y="88" color="#ef4444"/><use href="#b" x="90" y="76" color="#22d3ee"/>
+    <use href="#b" x="120" y="56" color="#a3e635"/><use href="#b" x="150" y="54" color="#f472b6"/><use href="#b" x="178" y="70" color="#facc15"/>
+    <animate attributeName="opacity" values="1;.6;1" dur="1.2s" repeatCount="indefinite"/>
+  </g>
+  <g>
+    <use href="#b" x="30" y="138" color="#f472b6"/><use href="#b" x="60" y="148" color="#facc15"/><use href="#b" x="90" y="136" color="#ef4444"/>
+    <use href="#b" x="120" y="116" color="#22d3ee"/><use href="#b" x="150" y="114" color="#a3e635"/><use href="#b" x="178" y="130" color="#f472b6"/>
+    <animate attributeName="opacity" values=".6;1;.6" dur="1.2s" repeatCount="indefinite"/>
+  </g>
+</svg>

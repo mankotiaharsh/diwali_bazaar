@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs>
+    <path id="leaf" d="M0 0 C-10 14 -8 34 0 44 C8 34 10 14 0 0Z" fill="#16a34a" stroke="#14532d" stroke-width="1.5"/>
+    <g id="o"><circle r="9" fill="#f97316"/><circle r="4.5" fill="#fb923c"/></g>
+    <g id="y"><circle r="9" fill="#facc15"/><circle r="4.5" fill="#fde047"/></g>
+  </defs>
+  <rect x="14" y="40" width="172" height="14" rx="4" fill="#be123c"/>
+  <path d="M14 47 H186" stroke="#facc15" stroke-width="3" stroke-dasharray="6 6"/>
+  <use href="#leaf" x="30" y="54"/><use href="#leaf" x="58" y="54"/><use href="#leaf" x="86" y="54"/>
+  <use href="#leaf" x="114" y="54"/><use href="#leaf" x="142" y="54"/><use href="#leaf" x="170" y="54"/>
+  <use href="#o" x="44" y="62"/><use href="#y" x="44" y="80"/><use href="#o" x="44" y="98"/>
+  <use href="#y" x="100" y="62"/><use href="#o" x="100" y="80"/><use href="#y" x="100" y="98"/><use href="#o" x="100" y="116"/>
+  <use href="#o" x="156" y="62"/><use href="#y" x="156" y="80"/><use href="#o" x="156" y="98"/>
+  <g fill="#dc2626"><circle cx="44" cy="112" r="4"/><circle cx="100" cy="130" r="4"/><circle cx="156" cy="112" r="4"/></g>
+  <g fill="#facc15"><path d="M44 116 l-4 10 h8z"/><path d="M100 134 l-4 10 h8z"/><path d="M156 116 l-4 10 h8z"/></g>
+</svg>

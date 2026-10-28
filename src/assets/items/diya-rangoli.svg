@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <defs>
+    <radialGradient id="glow"><stop offset="0" stop-color="#fde047" stop-opacity=".7"/><stop offset="1" stop-color="#fde047" stop-opacity="0"/></radialGradient>
+    <linearGradient id="paint" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#be185d"/><stop offset=".5" stop-color="#db2777"/><stop offset="1" stop-color="#9d174d"/></linearGradient>
+  </defs>
+  <circle cx="60" cy="48" r="36" fill="url(#glow)">
+    <animate attributeName="r" values="32;38;32" dur="1.5s" repeatCount="indefinite"/>
+  </circle>
+  <path d="M60 18 C72 36 70 52 60 58 C50 52 48 36 60 18Z" fill="#f97316">
+    <animateTransform attributeName="transform" type="scale" values="1 1;1.04 .94;1 1" dur=".85s" repeatCount="indefinite" additive="sum"/>
+  </path>
+  <path d="M60 30 C66 42 66 50 60 54 C54 50 54 42 60 30Z" fill="#fde047"/>
+  <path d="M14 66 Q60 64 106 66 Q98 96 60 98 Q22 96 14 66Z" fill="url(#paint)" stroke="#831843" stroke-width="2"/>
+  <path d="M14 66 Q60 76 106 66" fill="none" stroke="#fbbf24" stroke-width="3"/>
+  <g fill="none" stroke="#fde68a" stroke-width="2.5" stroke-linecap="round">
+    <path d="M28 80 q6 -6 12 0 q6 6 12 0 q6 -6 12 0 q6 6 12 0 q6 -6 12 0"/>
+  </g>
+  <g fill="#22d3ee"><circle cx="34" cy="88" r="2.5"/><circle cx="60" cy="92" r="2.5"/><circle cx="86" cy="88" r="2.5"/></g>
+  <g fill="#fbbf24"><circle cx="47" cy="90" r="2"/><circle cx="73" cy="90" r="2"/></g>
+</svg>

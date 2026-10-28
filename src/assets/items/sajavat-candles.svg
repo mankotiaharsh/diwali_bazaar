@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs>
+    <radialGradient id="glow"><stop offset="0" stop-color="#fde047" stop-opacity=".7"/><stop offset="1" stop-color="#fde047" stop-opacity="0"/></radialGradient>
+    <g id="f">
+      <circle r="18" fill="url(#glow)"/>
+      <path d="M0 -14 C6 -6 5 2 0 5 C-5 2 -6 -6 0 -14Z" fill="#f97316">
+        <animateTransform attributeName="transform" type="scale" values="1 1;1.06 .92;1 1" dur=".8s" repeatCount="indefinite"/>
+      </path>
+      <path d="M0 -7 C3 -3 3 1 0 3 C-3 1 -3 -3 0 -7Z" fill="#fde047"/>
+    </g>
+  </defs>
+  <rect x="44" y="96" width="30" height="80" rx="4" fill="#db2777"/><path d="M44 120 h30 M44 150 h30" stroke="#fbcfe8" stroke-width="3"/>
+  <rect x="85" y="70" width="30" height="106" rx="4" fill="#7c3aed"/><path d="M85 100 h30 M85 140 h30" stroke="#ddd6fe" stroke-width="3"/>
+  <rect x="126" y="110" width="30" height="66" rx="4" fill="#0891b2"/><path d="M126 134 h30 M126 158 h30" stroke="#a5f3fc" stroke-width="3"/>
+  <g stroke="#1c1917" stroke-width="2"><path d="M59 96 v-6"/><path d="M100 70 v-6"/><path d="M141 110 v-6"/></g>
+  <use href="#f" x="59" y="84"/><use href="#f" x="100" y="58"/><use href="#f" x="141" y="98"/>
+  <ellipse cx="100" cy="178" rx="70" ry="8" fill="#d4af37" stroke="#a16207" stroke-width="2"/>
+</svg>

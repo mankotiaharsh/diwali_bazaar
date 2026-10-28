@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs>
+    <linearGradient id="s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f3f4f6"/><stop offset="1" stop-color="#9ca3af"/></linearGradient>
+    <g id="bowl">
+      <path d="M-40 0 Q0 -6 40 0 Q34 34 0 36 Q-34 34 -40 0Z" fill="url(#s)" stroke="#4b5563" stroke-width="2"/>
+      <path d="M-40 0 Q0 8 40 0" fill="none" stroke="#fff" stroke-width="2"/>
+    </g>
+  </defs>
+  <path d="M26 112 Q62 82 98 112" fill="#facc15"/>
+  <use href="#bowl" x="62" y="112"/>
+  <path d="M102 112 Q138 82 174 112" fill="#be123c"/>
+  <use href="#bowl" x="138" y="112"/>
+  <ellipse cx="100" cy="156" rx="88" ry="10" fill="#d4af37" opacity=".7"/>
+  <g fill="#ca8a04"><circle cx="54" cy="100" r="2"/><circle cx="70" cy="96" r="2"/></g>
+  <g fill="#e11d48"><circle cx="130" cy="100" r="2"/><circle cx="146" cy="96" r="2"/></g>
+</svg>
