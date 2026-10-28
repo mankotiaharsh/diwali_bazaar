@@ -5,6 +5,11 @@ export const BRAND = {
   // Next Diwali / Lakshmi Puja (YYYY-MM-DD). 2026 falls on 8 Nov, 2027 on 29 Oct — update each year.
   diwaliDate: "2026-11-08",
   contactEmail: "harshmankotia01@gmail.com",
+  // Shown on the Contact Us page (payment gateways check these). Leave "" to hide a line.
+  operatorName: "Harsh Mankotia",
+  contactPhone: "",
+  contactAddress: "",
+  supportHours: "Monday to Saturday, 10 AM – 7 PM IST",
   // Minimum shagun shown in the legal pages. The backend (SHAGUN_AMOUNT) enforces it — keep them equal.
   shagunAmount: 51,
   // Shown as "Last updated" on the Terms and Privacy pages — change it whenever you edit them.

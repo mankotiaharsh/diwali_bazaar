@@ -19,10 +19,38 @@ interface LegalDoc {
   sections: Section[];
 }
 
-const { name, contactEmail, shagunAmount } = BRAND;
+const { name, contactEmail, shagunAmount, operatorName, contactPhone, contactAddress, supportHours } = BRAND;
 const SHAGUN = `₹${shagunAmount}`;
 
-const CONTENT: Record<"terms" | "privacy" | "refund", LegalDoc> = {
+const CONTENT: Record<"terms" | "privacy" | "refund" | "contact", LegalDoc> = {
+  contact: {
+    title: "Contact Us",
+    summary: `Questions about a payment, a refund or a thali link? Write to us and we will reply within 2 working days.`,
+    sections: [
+      {
+        heading: "Get in touch",
+        body: [
+          [
+            `Business: ${name}${operatorName ? ` (operated by ${operatorName})` : ""}`,
+            `Email: ${contactEmail}`,
+            ...(contactPhone ? [`Phone: ${contactPhone}`] : []),
+            ...(contactAddress ? [`Address: ${contactAddress}`] : []),
+            `Support hours: ${supportHours}`,
+          ],
+        ],
+      },
+      {
+        heading: "Payment or refund issues",
+        body: [
+          `Please include your Order ID (shown on the payment screens and in your receipt email), the mobile number you used and a short description. See our Refund Policy for when and how refunds are made.`,
+        ],
+      },
+      {
+        heading: "Taking a link down",
+        body: [`If you want a thali link removed, email us the link and we will disable it.`],
+      },
+    ],
+  },
   terms: {
     title: "Terms & Conditions",
     summary: `${name} lets you make a digital Diwali thali and send it as a link. Each link needs a one-time shagun of at least ${SHAGUN}, paid securely through Cashfree. Be kind with what you write, share links only with people you trust, and remember that nothing here is a physical product.`,
@@ -336,6 +364,7 @@ export default function LegalPage({ kind }: { kind: keyof typeof CONTENT }) {
           {kind !== "terms" && <Link to="/terms">Terms &amp; Conditions</Link>}
           {kind !== "privacy" && <Link to="/privacy">Privacy Policy</Link>}
           {kind !== "refund" && <Link to="/refund">Refund Policy</Link>}
+          {kind !== "contact" && <Link to="/contact">Contact Us</Link>}
         </p>
         <Footer />
       </div>

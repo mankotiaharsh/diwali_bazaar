@@ -20,6 +20,7 @@ export default function App() {
           <Route path="/terms" element={<LegalPage kind="terms" />} />
           <Route path="/privacy" element={<LegalPage kind="privacy" />} />
           <Route path="/refund" element={<LegalPage kind="refund" />} />
+          <Route path="/contact" element={<LegalPage kind="contact" />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </BrowserRouter>
