@@ -1,58 +1,86 @@
-import { useEffect, useMemo, useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { useState } from "react";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useThali } from "../state/ThaliContext";
 import { ThaliPlate } from "../components/ThaliPlate";
 import { ITEM_BY_ID, NAME_MAX, isStyled, itemLooks } from "../data/items";
-import { buildShareUrl } from "../lib/shareLink";
-import { useToast } from "../components/Toast";
+import { ApiError, formatRupees, usePublicConfig } from "../lib/api";
+import { payForThali, type PayOutcome, type PayStep } from "../lib/payment";
+import { toThaliData } from "../lib/thali";
 import { Footer } from "../components/Footer";
 import { NoteModal } from "../components/NoteModal";
 
+const STEP_LABEL: Record<PayStep, string> = {
+  creating: "Creating your order…",
+  paying: "Complete the payment in the Cashfree window…",
+  confirming: "Confirming your payment…",
+};
+
+/** Same rules as the backend: 10-digit Indian mobile, with optional +91 / 0 in front. */
+function normalizePhone(raw: string): string | null {
+  let d = raw.replace(/\D/g, "");
+  if (d.length === 12 && d.startsWith("91")) d = d.slice(2);
+  else if (d.length === 11 && d.startsWith("0")) d = d.slice(1);
+  return /^[6-9]\d{9}$/.test(d) ? d : null;
+}
+
+const isEmail = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim());
+
+type Problem = Extract<PayOutcome, { orderId: string }> | { status: "error"; message: string };
+
 export default function ReviewPage() {
   const t = useThali();
+  const navigate = useNavigate();
+  const config = usePublicConfig();
   const [from, setFrom] = useState(t.from);
   const [to, setTo] = useState(t.to);
-  const [link, setLink] = useState<string | null>(null);
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+  // A preset amount, or "custom" to type one. null = the minimum shagun.
+  const [choice, setChoice] = useState<number | "custom" | null>(null);
+  const [customAmount, setCustomAmount] = useState("");
   const [noteOpen, setNoteOpen] = useState(false);
-  const toast = useToast();
-
-  const ready = from.trim().length > 0 && to.trim().length > 0;
-  const shareText = useMemo(
-    () => (link ? `${from.trim()} sent you a Diwali thali 🪔 Open it here: ${link}` : ""),
-    [link, from],
-  );
-
-  // The note travels inside the link, so a new note needs a new link.
-  useEffect(() => setLink(null), [t.note]);
+  const [step, setStep] = useState<PayStep | null>(null);
+  const [problem, setProblem] = useState<Problem | null>(null);
 
   if (t.items.length === 0) return <Navigate to="/" replace />;
 
-  const create = () => {
-    t.setNames(from.trim(), to.trim());
-    setLink(
-      buildShareUrl({ from: from.trim(), to: to.trim(), items: t.items, styles: t.styles, note: t.note }),
-    );
-  };
+  const cleanPhone = normalizePhone(phone);
+  const emailOk = isEmail(email);
 
-  const copy = async () => {
-    if (!link) return;
+  const amount = choice === "custom" ? Number(customAmount) : choice ?? config?.min_amount ?? null;
+  let amountError: string | null = null;
+  if (config && choice === "custom") {
+    if (!/^\d+$/.test(customAmount)) amountError = "Enter the amount in whole rupees.";
+    else if (amount! < config.min_amount) amountError = `The minimum shagun is ${formatRupees(config.min_amount)}.`;
+    else if (amount! > config.max_amount) amountError = `The maximum shagun is ${formatRupees(config.max_amount)}.`;
+  }
+  const amountOk = amount !== null && amountError === null;
+  const price = amountOk ? formatRupees(amount) : "";
+
+  const busy = step !== null;
+  const ready = from.trim() !== "" && to.trim() !== "" && cleanPhone !== null && emailOk && amountOk && !busy;
+
+  const pay = async () => {
+    if (!cleanPhone || !amountOk) return;
+    const names = { from: from.trim(), to: to.trim() };
+    t.setNames(names.from, names.to);
+    setProblem(null);
     try {
-      await navigator.clipboard.writeText(link);
-      toast.show("Link copied!");
-    } catch {
-      toast.show("Couldn't copy — long-press the link instead");
-    }
-  };
-
-  const nativeShare = async () => {
-    if (!link) return;
-    if (navigator.share) {
-      try {
-        await navigator.share({ title: "A Diwali thali for you", text: shareText, url: link });
-      } catch {
-        /* user cancelled */
+      const outcome = await payForThali(
+        { thali: toThaliData({ ...t, ...names }), phone: cleanPhone, email: email.trim(), amount: amount! },
+        setStep,
+      );
+      if (outcome.status === "paid") {
+        navigate(`/sent/${outcome.thaliId}`, { replace: true });
+        t.reset();
+      } else if (outcome.status !== "redirecting") {
+        setProblem(outcome);
       }
-    } else copy();
+    } catch (e) {
+      setProblem({ status: "error", message: e instanceof ApiError ? e.message : "Something went wrong. Please try again." });
+    } finally {
+      setStep(null);
+    }
   };
 
   return (
@@ -72,7 +100,7 @@ export default function ReviewPage() {
                   {looks.map((l) => <img key={l.key} src={l.image} alt="" />)}
                 </div>
                 <span>{isStyled(id) ? `${ITEM_BY_ID[id].name} · ${looks.map((l) => l.name).join(", ")}` : ITEM_BY_ID[id].name}</span>
-                <button className="icon-btn" aria-label={`Remove ${ITEM_BY_ID[id].name}`} onClick={() => { t.toggle(id); setLink(null); }}>×</button>
+                <button className="icon-btn" aria-label={`Remove ${ITEM_BY_ID[id].name}`} disabled={busy} onClick={() => t.toggle(id)}>×</button>
               </li>
             );
           })}
@@ -81,48 +109,130 @@ export default function ReviewPage() {
         {t.note ? (
           <div className="note-card note-edit">
             <p>“{t.note}”</p>
-            <button className="add-note" onClick={() => setNoteOpen(true)}>Edit note</button>
+            <button className="add-note" disabled={busy} onClick={() => setNoteOpen(true)}>Edit note</button>
           </div>
         ) : (
-          <button className="add-note" onClick={() => setNoteOpen(true)}>+ Add a note</button>
+          <button className="add-note" disabled={busy} onClick={() => setNoteOpen(true)}>+ Add a note</button>
         )}
 
         <div className="card form">
           <label>
             Your name
-            <input value={from} maxLength={NAME_MAX} placeholder="e.g. Priya" onChange={(e) => { setFrom(e.target.value); setLink(null); }} />
+            <input value={from} maxLength={NAME_MAX} placeholder="e.g. Priya" disabled={busy} onChange={(e) => setFrom(e.target.value)} />
           </label>
           <label>
             Who's it for?
-            <input value={to} maxLength={NAME_MAX} placeholder="e.g. Maa, Rohan, the Sharma family" onChange={(e) => { setTo(e.target.value); setLink(null); }} />
+            <input value={to} maxLength={NAME_MAX} placeholder="e.g. Maa, Rohan, the Sharma family" disabled={busy} onChange={(e) => setTo(e.target.value)} />
+          </label>
+          <label>
+            Your mobile number
+            <input
+              type="tel"
+              inputMode="numeric"
+              autoComplete="tel"
+              value={phone}
+              maxLength={16}
+              placeholder="98765 43210"
+              disabled={busy}
+              onChange={(e) => setPhone(e.target.value)}
+            />
+            <span className="field-hint">
+              {phone && !cleanPhone ? "Enter a 10-digit Indian mobile number." : "Needed by Cashfree for the payment. It is never shown to the person you send the thali to."}
+            </span>
+          </label>
+          <label>
+            Your email
+            <input
+              type="email"
+              autoComplete="email"
+              value={email}
+              maxLength={254}
+              placeholder="you@example.com"
+              disabled={busy}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <span className="field-hint">
+              {email && !emailOk ? "Enter a valid email address." : "We'll email your payment receipt and invoice here."}
+            </span>
           </label>
 
-          {!link ? (
-            <button className="btn btn-primary full" disabled={!ready} onClick={create}>
-              Create thali link 🪔
-            </button>
-          ) : (
-            <div className="share">
-              <div className="link-box">{link}</div>
-              <div className="share-row">
-                <button className="btn btn-primary" onClick={copy}>Copy link</button>
-                <a className="btn btn-whatsapp" href={`https://wa.me/?text=${encodeURIComponent(shareText)}`} target="_blank" rel="noreferrer">
-                  WhatsApp
-                </a>
-                <button className="btn btn-ghost" onClick={nativeShare}>Share…</button>
+          {config && (
+            <fieldset className="shagun-box" disabled={busy}>
+              <legend>
+                <span>Shagun</span>
+                <strong>{price || "—"}</strong>
+              </legend>
+              <div className="shagun-chips">
+                {config.preset_amounts.map((value) => (
+                  <button
+                    key={value}
+                    type="button"
+                    className={`shagun-chip${amount === value && choice !== "custom" ? " is-selected" : ""}`}
+                    aria-pressed={amount === value && choice !== "custom"}
+                    onClick={() => setChoice(value)}
+                  >
+                    {formatRupees(value)}
+                  </button>
+                ))}
+                <button
+                  type="button"
+                  className={`shagun-chip${choice === "custom" ? " is-selected" : ""}`}
+                  aria-pressed={choice === "custom"}
+                  onClick={() => setChoice("custom")}
+                >
+                  Custom
+                </button>
               </div>
-              <a className="preview-link" href={link} target="_blank" rel="noreferrer">Preview what {to.trim()} will see ↗</a>
+              {choice === "custom" && (
+                <label>
+                  <span className="shagun-custom">
+                    <span>₹</span>
+                    <input
+                      inputMode="numeric"
+                      autoFocus
+                      value={customAmount}
+                      placeholder={`${config.min_amount} or more`}
+                      aria-label="Custom shagun amount in rupees"
+                      onChange={(e) => setCustomAmount(e.target.value.replace(/[^\d]/g, "").slice(0, 6))}
+                    />
+                  </span>
+                  <span className="field-hint">
+                    {customAmount && amountError
+                      ? amountError
+                      : `Any amount from ${formatRupees(config.min_amount)} to ${formatRupees(config.max_amount)}.`}
+                  </span>
+                </label>
+              )}
+            </fieldset>
+          )}
+
+          {config && !config.payments_enabled ? (
+            <p className="pay-problem" role="alert">Payments aren't available right now. Please try again later.</p>
+          ) : (
+            <button className="btn btn-primary full" disabled={!ready || !config} onClick={pay}>
+              {step ? STEP_LABEL[step] : `Pay ${price} shagun & create link 🪔`}
+            </button>
+          )}
+
+          {problem && (
+            <div className="pay-problem" role="alert">
+              <p>{problem.message}</p>
+              {problem.status === "pending" && (
+                <Link to={`/payment/return?order_id=${problem.orderId}`}>Check payment status →</Link>
+              )}
+              {"orderId" in problem && <p className="order-ref">Order ID: {problem.orderId}</p>}
             </div>
           )}
+
+          <p className="pay-secure">🔒 Secure payment by Cashfree · UPI, cards, netbanking &amp; wallets</p>
         </div>
 
-        <button className="btn btn-ghost full" onClick={() => { if (confirm("Start a new thali?")) t.reset(); }}>
+        <button className="btn btn-ghost full" disabled={busy} onClick={() => { if (confirm("Start a new thali?")) t.reset(); }}>
           Start over
         </button>
         <Footer />
       </div>
       <NoteModal open={noteOpen} onClose={() => setNoteOpen(false)} />
-      {toast.node}
     </div>
   );
 }

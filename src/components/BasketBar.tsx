@@ -14,7 +14,6 @@ export function BasketBar() {
         <span>
           Basket · <strong>{count}</strong> {count === 1 ? "item" : "items"}
         </span>
-        <span className="price-free">Free</span>
       </div>
       {empty ? (
         <span className="btn btn-primary is-disabled" aria-disabled>

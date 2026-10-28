@@ -8,6 +8,8 @@ export function Footer() {
       <span>·</span>
       <Link to="/privacy">Privacy Policy</Link>
       <span>·</span>
+      <Link to="/refund">Refund Policy</Link>
+      <span>·</span>
       <span>© {new Date().getFullYear()} {BRAND.name}</span>
     </footer>
   );

@@ -19,12 +19,13 @@ interface LegalDoc {
   sections: Section[];
 }
 
-const { name, contactEmail } = BRAND;
+const { name, contactEmail, shagunAmount } = BRAND;
+const SHAGUN = `₹${shagunAmount}`;
 
-const CONTENT: Record<"terms" | "privacy", LegalDoc> = {
+const CONTENT: Record<"terms" | "privacy" | "refund", LegalDoc> = {
   terms: {
     title: "Terms & Conditions",
-    summary: `${name} is a free way to make a digital Diwali thali and share it as a link. Be kind with what you write, share links only with people you trust, and remember that nothing here is a physical product.`,
+    summary: `${name} lets you make a digital Diwali thali and send it as a link. Each link needs a one-time shagun of at least ${SHAGUN}, paid securely through Cashfree. Be kind with what you write, share links only with people you trust, and remember that nothing here is a physical product.`,
     sections: [
       {
         heading: "1. About these terms",
@@ -36,9 +37,9 @@ const CONTENT: Record<"terms" | "privacy", LegalDoc> = {
       {
         heading: "2. The Service",
         body: [
-          `${name} lets you choose illustrated items (such as a diya, mithai, phool, pooja samagri and patakhe), add an optional message, and generate a link that shows your digital Diwali thali to whoever opens it.`,
+          `${name} lets you choose illustrated items (such as a diya, mithai, phool, pooja samagri and patakhe), add an optional message and, after paying a one-time shagun, receive a link that shows your digital Diwali thali to whoever opens it.`,
           [
-            "The Service is free of charge.",
+            "Building and previewing a thali is free. Creating its share link needs a one-time shagun: at least the minimum shown, or any higher amount you choose.",
             "Every thali is a digital greeting only. No physical goods are sold, shipped or delivered, and the items shown are illustrations.",
             "Patakhe (fireworks) in the Service are digital animations only. If you celebrate with real fireworks, please follow local laws, any restrictions on timing or type, and safety guidance.",
             "No account or sign-up is required.",
@@ -46,13 +47,25 @@ const CONTENT: Record<"terms" | "privacy", LegalDoc> = {
         ],
       },
       {
-        heading: "3. Eligibility",
+        heading: "3. Payments",
+        body: [
+          [
+            `The minimum shagun for each thali link is ${SHAGUN} (Indian Rupees). You may choose to give more. The amount shown on the payment button is the amount charged.`,
+            "Payments are processed by Cashfree Payments, a licensed payment aggregator. We never see or store your card, UPI or bank details.",
+            "Your link is created only after Cashfree confirms the payment. If a payment fails, no link is created.",
+            "A receipt and invoice are emailed to the address you provide after a successful payment.",
+            "Refunds are covered by our Refund Policy.",
+          ],
+        ],
+      },
+      {
+        heading: "4. Eligibility",
         body: [
           "You may use the Service if you are able to form a binding agreement under applicable law. If you are under 18, please use the Service with the involvement of a parent or guardian, who accepts these Terms on your behalf.",
         ],
       },
       {
-        heading: "4. Your content and conduct",
+        heading: "5. Your content and conduct",
         body: [
           'You are solely responsible for the names, messages and any other content you add to a thali ("Your Content"). You confirm that you have the right to use Your Content and that it does not break any law or anyone else\'s rights.',
           "You agree not to use the Service to:",
@@ -64,63 +77,63 @@ const CONTENT: Record<"terms" | "privacy", LegalDoc> = {
             "share another person's personal or sensitive information without their consent;",
             "interfere with, disrupt, overload or attempt to gain unauthorised access to the Service or its infrastructure.",
           ],
-          "We do not review thalis before they are shared. You keep ownership of Your Content. Because Your Content lives inside the link you create, you control who receives it.",
+          "We do not review thalis before they are shared, but we may remove a thali that breaks these Terms. You keep ownership of Your Content, and you control who receives your link.",
         ],
       },
       {
-        heading: "5. Thali links",
+        heading: "6. Thali links",
         body: [
           [
             "Anyone who has a thali link can open it and see everything in it, including names and the message. Share links only with the people you intend to.",
-            "We cannot edit, disable or delete a link after it has been created and shared, because the thali is stored in the link itself and not on our servers. To change a thali, create a new link.",
+            "A thali cannot be edited after its link is created. To change it, create a new thali. If you need a link taken down, contact us.",
             "Messaging apps and websites you share a link through (such as WhatsApp) are operated by third parties and have their own terms and privacy policies.",
           ],
         ],
       },
       {
-        heading: "6. Intellectual property",
+        heading: "7. Intellectual property",
         body: [
           `The Service, including its design, illustrations, animations, text, code and the ${name} name, belongs to us or our licensors and is protected by intellectual property laws. You may use the Service for personal, non-commercial purposes. You may not copy, modify, distribute, sell or reverse-engineer any part of the Service except as permitted by law.`,
         ],
       },
       {
-        heading: "7. Availability and changes",
+        heading: "8. Availability and changes",
         body: [
           "We may change, suspend or discontinue any part of the Service at any time, without notice. We do not guarantee that the Service will always be available, uninterrupted or error-free, or that links will keep working if the Service changes or stops.",
         ],
       },
       {
-        heading: "8. Disclaimer",
+        heading: "9. Disclaimer",
         body: [
           'The Service is provided on an "as is" and "as available" basis. To the fullest extent permitted by law, we disclaim all warranties, express or implied, including warranties of merchantability, fitness for a particular purpose and non-infringement.',
         ],
       },
       {
-        heading: "9. Limitation of liability",
+        heading: "10. Limitation of liability",
         body: [
-          "To the fullest extent permitted by law, we will not be liable for any indirect, incidental, special, consequential or punitive damages, or for any loss of data, goodwill or reputation, arising from your use of, or inability to use, the Service, or from any content sent through it by users. Because the Service is provided free of charge, our total liability for any claim relating to the Service is limited to zero, except where the law does not allow such a limit.",
+          "To the fullest extent permitted by law, we will not be liable for any indirect, incidental, special, consequential or punitive damages, or for any loss of data, goodwill or reputation, arising from your use of, or inability to use, the Service, or from any content sent through it by users. Our total liability for any claim relating to a thali is limited to the shagun you paid for it, except where the law does not allow such a limit.",
         ],
       },
       {
-        heading: "10. Indemnity",
+        heading: "11. Indemnity",
         body: [
           "You agree to indemnify and hold us harmless from any claims, losses, liabilities and expenses (including reasonable legal fees) arising from Your Content or from your breach of these Terms or of any law.",
         ],
       },
       {
-        heading: "11. Governing law and disputes",
+        heading: "12. Governing law and disputes",
         body: [
           "These Terms are governed by the laws of India. Any dispute arising from or relating to these Terms or the Service will be subject to the jurisdiction of the competent courts in India. Before starting any formal proceedings, please contact us so we can try to resolve the matter informally.",
         ],
       },
       {
-        heading: "12. Changes to these terms",
+        heading: "13. Changes to these terms",
         body: [
           'We may update these Terms from time to time. The "Last updated" date at the top of this page shows when they were last changed. By continuing to use the Service after an update, you accept the revised Terms.',
         ],
       },
       {
-        heading: "13. Contact and grievances",
+        heading: "14. Contact and grievances",
         body: [
           `For questions about these Terms, or to report content or misuse of the Service, write to ${contactEmail}. In line with the Information Technology Act, 2000 and the rules made under it, we will acknowledge complaints within 24 hours and aim to resolve them within 15 days.`,
         ],
@@ -129,7 +142,7 @@ const CONTENT: Record<"terms" | "privacy", LegalDoc> = {
   },
   privacy: {
     title: "Privacy Policy",
-    summary: `${name} has no accounts, no database and no tracking. Your thali, including names and your message, is packed into the link you share, so anyone with that link can read it. Your browser keeps an unfinished thali so you don't lose it on refresh.`,
+    summary: `${name} has no accounts and no tracking. When you pay for a thali we store it, with your mobile number and email, so its link works and we can send your receipt. Anyone with the link can see the thali, but never your contact details. Payments are handled by Cashfree, so we never see your card or UPI details.`,
     sections: [
       {
         heading: "1. About this policy",
@@ -144,16 +157,18 @@ const CONTENT: Record<"terms" | "privacy", LegalDoc> = {
           [
             "your name and the recipient's name;",
             "an optional personal message;",
-            "the items you choose for the thali.",
+            "the items you choose for the thali;",
+            "your mobile number, which our payment partner Cashfree requires for every payment;",
+            "your email address, to send your payment receipt and invoice.",
           ],
-          "We do not ask for your email address, phone number, location, payment details or any government ID. Please do not include sensitive personal information (such as financial, health or identity details) in names or messages.",
+          "We do not ask for your location or any government ID. Please do not include sensitive personal information (such as financial, health or identity details) in names or messages.",
         ],
       },
       {
         heading: "3. Where your thali is kept",
         body: [
           [
-            "Inside the link. When you create a thali, its contents are encoded into the web address (URL) of the link. We do not save thalis in any database. Anyone who has the link can decode and read its contents.",
+            "On our servers. When you pay, your thali (names, items and message), your mobile number, your email address and the payment reference are stored in our database so the link can be opened. The link itself contains only a short random code.",
             "In your browser. While you build a thali, your progress is saved in your browser's local storage on your own device, so it isn't lost if you refresh. It is not sent to us. You can remove it with \"Start over\" or by clearing your browser's site data.",
           ],
         ],
@@ -163,7 +178,7 @@ const CONTENT: Record<"terms" | "privacy", LegalDoc> = {
         body: [
           "We do not use cookies, analytics, advertising or tracking tools. However, like any website, some technical information is processed by the services that make the site work:",
           [
-            "Hosting. The Service is hosted by Vercel. When you load a page, Vercel may record standard server logs such as IP address, date and time, browser type and the address requested, for security and reliability. Because a thali's contents are part of its link, the requested address may include that thali's data.",
+            "Hosting. The website and its server are hosted by third-party providers (such as Vercel). They may record standard server logs such as IP address, date and time, browser type and the address requested, for security and reliability.",
             "Fonts. Our fonts are loaded from Google Fonts, so your browser connects to Google's servers, which can see your IP address and browser details.",
           ],
           "These providers act under their own privacy policies.",
@@ -172,14 +187,16 @@ const CONTENT: Record<"terms" | "privacy", LegalDoc> = {
       {
         heading: "5. How information is used",
         body: [
-          "Information is used only to build and display your thali and to operate, secure and maintain the Service. We do not sell, rent or trade personal information, and we do not use it for advertising or profiling.",
+          "Information is used only to build and display your thali, to process and confirm your payment, to handle refunds and support requests, and to operate, secure and maintain the Service. We do not sell, rent or trade personal information, and we do not use it for advertising or profiling.",
         ],
       },
       {
         heading: "6. Sharing",
         body: [
           [
-            "With the recipient. Sharing a link shares its contents with whoever opens it, and with anyone they forward it to.",
+            "With the recipient. Sharing a link shares the thali with whoever opens it, and with anyone they forward it to. Your mobile number and email are never shown.",
+            "With Cashfree. Your name, mobile number, email and the amount are shared with Cashfree Payments to process the payment. Your card, UPI or bank details go directly to Cashfree and never reach us.",
+            "With our email provider. Your email address, name and receipt details are passed to our email delivery provider (Resend) only to send your receipt.",
             "Through messaging apps. If you share a link through WhatsApp or another app, that app handles the link under its own privacy policy and may generate a preview of it.",
             "Legal requirements. We may disclose information where required by law or a valid order of a court or government authority.",
           ],
@@ -188,24 +205,24 @@ const CONTENT: Record<"terms" | "privacy", LegalDoc> = {
       {
         heading: "7. Data retention",
         body: [
-          "We do not keep thalis on our servers. A link keeps working for as long as the Service is online and the link exists in the places you shared it. Data saved in your browser stays until you clear it. Hosting logs are kept by our hosting provider in line with its own retention policy.",
+          "Paid thalis are kept so their links keep working, and payment records are kept as long as required for accounting, tax and legal purposes. Unpaid checkouts are kept only as long as needed to confirm whether they were paid. Data saved in your browser stays until you clear it. You can ask us to delete a thali at any time (see section 9).",
         ],
       },
       {
         heading: "8. Security",
         body: [
-          "The Service is served over a secure, encrypted (HTTPS) connection. However, a thali link is not password-protected: anyone who gets hold of it can view it. No method of transmission over the internet is completely secure, so please share links with care.",
+          "The Service is served over a secure, encrypted (HTTPS) connection, and access to stored data is restricted. A thali link is not password-protected: anyone who gets hold of it can view it. No method of transmission over the internet is completely secure, so please share links with care.",
         ],
       },
       {
         heading: "9. Your rights and choices",
         body: [
           [
-            "You choose what to enter: every field, including the message, is optional except the names needed to create a link, and you can use a nickname.",
+            "You choose what to enter: the message is optional and you can use nicknames. The mobile number and email are required only to make the payment and send your receipt.",
             "You can delete the thali saved in your browser at any time with \"Start over\" or by clearing site data.",
-            "You can stop sharing a link, but we cannot revoke a link that has already been sent. If you shared a link by mistake, ask the recipient to delete it.",
+            "If you shared a link by mistake, or want a thali taken down, write to us with the link and we will remove it.",
           ],
-          `Subject to applicable law, including the Digital Personal Data Protection Act, 2023, you may contact us at ${contactEmail} to ask about, correct or erase any personal data relating to you, or to raise a grievance. As we hold no database of thalis, we may have nothing on record about you.`,
+          `Subject to applicable law, including the Digital Personal Data Protection Act, 2023, you may contact us at ${contactEmail} to ask about, correct or erase any personal data relating to you, or to raise a grievance.`,
         ],
       },
       {
@@ -225,6 +242,60 @@ const CONTENT: Record<"terms" | "privacy", LegalDoc> = {
         body: [
           `For any privacy question, request or complaint, write to ${contactEmail}. We will acknowledge your message within 24 hours and aim to resolve it within 15 days.`,
         ],
+      },
+    ],
+  },
+  refund: {
+    title: "Refund & Cancellation Policy",
+    summary: `Your shagun pays for a digital thali link that is delivered instantly. If you were charged but didn't get your link, or were charged twice, we'll make it right.`,
+    sections: [
+      {
+        heading: "1. What you pay for",
+        body: [
+          `Each thali link needs a one-time shagun of at least ${SHAGUN}; you may choose to give more. It is a digital service: your link is created and shown to you immediately after Cashfree confirms the payment. Nothing is shipped.`,
+        ],
+      },
+      {
+        heading: "2. Delivery",
+        body: [
+          'Delivery is instant and online. After a successful payment you are taken to a page with your link, which you can copy or share right away, and a receipt with your link is emailed to you. If you closed the page, the link is still created; contact us with your Order ID and we will send it to you.',
+        ],
+      },
+      {
+        heading: "3. Cancellations",
+        body: [
+          "You can cancel at any time before paying by simply closing the payment window. Once the payment succeeds, the link is created instantly, so the order cannot be cancelled after that.",
+        ],
+      },
+      {
+        heading: "4. When we refund",
+        body: [
+          "We will refund the shagun you paid, in full, if:",
+          [
+            "money was deducted but your link was not created;",
+            "you were charged a different amount from the one shown on the payment button;",
+            "you were charged more than once for the same thali;",
+            "the link we created does not work and we cannot fix it.",
+          ],
+          "Because the link is delivered instantly, we do not offer refunds for a successfully created link because of a change of mind, a typo you made in a name or message, or a link shared with the wrong person. Contact us and we will gladly take such a link down.",
+        ],
+      },
+      {
+        heading: "5. How to ask for a refund",
+        body: [
+          `Write to ${contactEmail} within 7 days of the payment, with your Order ID (shown on the payment screens), the mobile number you used and a short description. We will reply within 2 working days.`,
+        ],
+      },
+      {
+        heading: "6. Refund timeline",
+        body: [
+          "Approved refunds are processed to the original payment method through Cashfree within 5–7 working days. Your bank or UPI app may take a few extra days to show the credit.",
+          "If money was deducted for a failed payment, it is usually reversed automatically by your bank within 5–7 working days. If it isn't, contact us.",
+        ],
+      },
+      {
+        heading: "7. Contact",
+        body: [`For any payment or refund question, write to ${contactEmail}.`],
       },
     ],
   },
@@ -262,7 +333,9 @@ export default function LegalPage({ kind }: { kind: keyof typeof CONTENT }) {
         </article>
 
         <p className="legal-switch">
-          {kind === "terms" ? <Link to="/privacy">Read our Privacy Policy →</Link> : <Link to="/terms">Read our Terms &amp; Conditions →</Link>}
+          {kind !== "terms" && <Link to="/terms">Terms &amp; Conditions</Link>}
+          {kind !== "privacy" && <Link to="/privacy">Privacy Policy</Link>}
+          {kind !== "refund" && <Link to="/refund">Refund Policy</Link>}
         </p>
         <Footer />
       </div>

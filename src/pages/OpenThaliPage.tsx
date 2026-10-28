@@ -1,6 +1,6 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { decodeThali } from "../lib/shareLink";
+import { useRemoteThali } from "../lib/useRemoteThali";
 import { ThaliPlate } from "../components/ThaliPlate";
 import { BRAND } from "../config/brand";
 import { Footer } from "../components/Footer";
@@ -9,8 +9,9 @@ const FIREWORK_COLORS = ["#fde047", "#f472b6", "#67e8f9", "#fb923c", "#a78bfa", 
 
 /** What the recipient sees when they open the link. */
 export default function OpenThaliPage() {
-  const { code = "" } = useParams();
-  const thali = useMemo(() => decodeThali(code), [code]);
+  const { id = "" } = useParams();
+  const remote = useRemoteThali(id);
+  const thali = remote.state === "ok" ? remote.thali : null;
   const [opened, setOpened] = useState(false);
   const [showNote, setShowNote] = useState(false);
 
@@ -21,7 +22,30 @@ export default function OpenThaliPage() {
     return () => window.clearTimeout(id);
   }, [opened, thali]);
 
-  if (!thali || thali.items.length === 0) {
+  if (remote.state === "loading") {
+    return (
+      <div className="page open-page">
+        <div className="envelope-card">
+          <div className="envelope" aria-hidden><div className="seal">🪔</div></div>
+          <p className="kicker">Opening your thali…</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (remote.state === "error") {
+    return (
+      <div className="page open-page">
+        <div className="envelope-card">
+          <h1 className="title">Couldn't open this thali</h1>
+          <p>{remote.message}</p>
+          <button className="btn btn-primary" onClick={remote.retry}>Try again</button>
+        </div>
+      </div>
+    );
+  }
+
+  if (!thali) {
     return (
       <div className="page open-page">
         <div className="envelope-card">
