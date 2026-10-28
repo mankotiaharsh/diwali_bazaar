@@ -4,5 +4,7 @@ export const BRAND = {
   tagline: "Fill a pooja thali with light and sweets, then send it to someone you love.",
   // Next Diwali / Lakshmi Puja (YYYY-MM-DD). 2026 falls on 8 Nov, 2027 on 29 Oct — update each year.
   diwaliDate: "2026-11-08",
-  contactEmail: "hello@example.com",
+  contactEmail: "harshmankotia01@gmail.com",
+  // Shown as "Last updated" on the Terms and Privacy pages — change it whenever you edit them.
+  legalUpdated: "28 October 2026",
 };
