@@ -110,7 +110,9 @@ a { color: inherit; }
   background: var(--green); color: #fff; font-size: 14px; display: grid; place-items: center;
   animation: pop .3s ease-out;
 }
-.tagline { text-align: center; color: #fde68a; font-weight: 500; margin: 28px auto 8px; max-width: 520px; }
+.tagline { text-align: center; color: #fde68a; font-weight: 500; margin: 28px auto 8px; max-width: 980px; }
+/* One line wherever it fits; phones still wrap rather than overflow. */
+@media (min-width: 640px) { .tagline { white-space: nowrap; } }
 .counter .footer { color: #fde68a; }
 
 /* ── Basket bar ──────────────────────────────────── */

@@ -1,9 +1,10 @@
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { BRAND } from "../config/brand";
 
 export function Footer() {
   return (
     <footer className="footer">
+      {/* Legal links hidden for now — uncomment these (and the Link import above) to show them again.
       <Link to="/terms">Terms &amp; Conditions</Link>
       <span>·</span>
       <Link to="/privacy">Privacy Policy</Link>
@@ -12,6 +13,7 @@ export function Footer() {
       <span>·</span>
       <Link to="/contact">Contact Us</Link>
       <span>·</span>
+      */}
       <span>© {new Date().getFullYear()} {BRAND.name}</span>
     </footer>
   );
