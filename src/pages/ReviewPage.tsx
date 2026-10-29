@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useThali } from "../state/ThaliContext";
 import { ThaliPlate } from "../components/ThaliPlate";
@@ -30,6 +30,15 @@ const BILL_PREVIEW = 5;
 const isEmail =(v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim());
 
 type Problem = Extract<PayOutcome, { orderId: string }> | { status: "error"; message: string };
+type Field = "from" | "to" | "phone" | "email" | "amount";
+
+const FIELD_LABEL: Record<Field, string> = {
+  from: "your name",
+  to: "who it's for",
+  phone: "mobile number",
+  email: "email",
+  amount: "shagun amount",
+};
 
 export default function ReviewPage() {
   const t = useThali();
@@ -46,11 +55,19 @@ export default function ReviewPage() {
   const [billExpanded, setBillExpanded] = useState(false);
   const [step, setStep] = useState<PayStep | null>(null);
   const [problem, setProblem] = useState<Problem | null>(null);
+  // Becomes true on the first Pay click, so empty required fields only turn red after that.
+  const [attempted, setAttempted] = useState(false);
+  const refs = {
+    from: useRef<HTMLInputElement>(null),
+    to: useRef<HTMLInputElement>(null),
+    phone: useRef<HTMLInputElement>(null),
+    email: useRef<HTMLInputElement>(null),
+    amount: useRef<HTMLInputElement>(null),
+  };
 
   if (t.items.length === 0) return <Navigate to="/" replace />;
 
   const cleanPhone = normalizePhone(phone);
-  const emailOk = isEmail(email);
 
   const amount = choice === "custom" ? Number(customAmount) : choice ?? config?.min_amount ?? null;
   let amountError: string | null = null;
@@ -68,10 +85,33 @@ export default function ReviewPage() {
   const billLineCount = bill.length + (t.note ? 1 : 0);
   const total = amountOk ? itemsTotal + amount! : null;
 
+  // Every problem with the form. Format errors show while typing; "required" ones only after a Pay attempt.
+  const errors: Partial<Record<Field, string>> = {};
+  if (!from.trim()) errors.from = "Please enter your name.";
+  if (!to.trim()) errors.to = "Please tell us who the thali is for.";
+  if (!phone.trim()) errors.phone = "Please enter your mobile number.";
+  else if (!cleanPhone) errors.phone = "Enter a valid 10-digit Indian mobile number.";
+  if (!email.trim()) errors.email = "Please enter your email.";
+  else if (!isEmail(email)) errors.email = "Enter a valid email address.";
+  if (amountError) errors.amount = amountError;
+  const missing = (Object.keys(errors) as Field[]).filter((f) => errors[f]);
+  const shown = (field: Field, value: string) => (attempted || value.trim() !== "" ? errors[field] : undefined);
+  const hint = (field: Field, value: string, normal?: string) => {
+    const err = shown(field, value);
+    if (!err && !normal) return null;
+    return <span className={`field-hint${err ? " is-error" : ""}`} id={`${field}-hint`}>{err ?? normal}</span>;
+  };
+
   const busy = step !== null;
-  const ready = from.trim() !== "" && to.trim() !== "" && cleanPhone !== null && emailOk && amountOk && !busy;
 
   const pay = async () => {
+    if (missing.length) {
+      setAttempted(true);
+      const first = refs[missing[0]].current;
+      first?.scrollIntoView({ behavior: "smooth", block: "center" });
+      first?.focus({ preventScroll: true });
+      return;
+    }
     if (!cleanPhone || !amountOk) return;
     const names = { from: from.trim(), to: to.trim() };
     t.setNames(names.from, names.to);
@@ -129,15 +169,36 @@ export default function ReviewPage() {
         <div className="card form">
           <label>
             Your name
-            <input value={from} maxLength={NAME_MAX} placeholder="e.g. Priya" disabled={busy} onChange={(e) => setFrom(e.target.value)} />
+            <input
+              ref={refs.from}
+              value={from}
+              maxLength={NAME_MAX}
+              placeholder="e.g. Priya"
+              disabled={busy}
+              aria-invalid={!!shown("from", from)}
+              aria-describedby="from-hint"
+              onChange={(e) => setFrom(e.target.value)}
+            />
+            {hint("from", from)}
           </label>
           <label>
             Who's it for?
-            <input value={to} maxLength={NAME_MAX} placeholder="e.g. Maa, Rohan, the Sharma family" disabled={busy} onChange={(e) => setTo(e.target.value)} />
+            <input
+              ref={refs.to}
+              value={to}
+              maxLength={NAME_MAX}
+              placeholder="e.g. Maa, Rohan, the Sharma family"
+              disabled={busy}
+              aria-invalid={!!shown("to", to)}
+              aria-describedby="to-hint"
+              onChange={(e) => setTo(e.target.value)}
+            />
+            {hint("to", to)}
           </label>
           <label>
             Your mobile number
             <input
+              ref={refs.phone}
               type="tel"
               inputMode="numeric"
               autoComplete="tel"
@@ -145,26 +206,27 @@ export default function ReviewPage() {
               maxLength={16}
               placeholder="98765 43210"
               disabled={busy}
+              aria-invalid={!!shown("phone", phone)}
+              aria-describedby="phone-hint"
               onChange={(e) => setPhone(e.target.value)}
             />
-            <span className="field-hint">
-              {phone && !cleanPhone ? "Enter a 10-digit Indian mobile number." : "Needed by Cashfree for the payment. It is never shown to the person you send the thali to."}
-            </span>
+            {hint("phone", phone, "Needed by Cashfree for the payment. It is never shown to the person you send the thali to.")}
           </label>
           <label>
             Your email
             <input
+              ref={refs.email}
               type="email"
               autoComplete="email"
               value={email}
               maxLength={254}
               placeholder="you@example.com"
               disabled={busy}
+              aria-invalid={!!shown("email", email)}
+              aria-describedby="email-hint"
               onChange={(e) => setEmail(e.target.value)}
             />
-            <span className="field-hint">
-              {email && !emailOk ? "Enter a valid email address." : "We'll email your payment receipt and invoice here."}
-            </span>
+            {hint("email", email, "We'll email your payment receipt and invoice here.")}
           </label>
 
           {config && (
@@ -196,22 +258,21 @@ export default function ReviewPage() {
               </div>
               {choice === "custom" && (
                 <label>
-                  <span className="shagun-custom">
+                  <span className={`shagun-custom${shown("amount", customAmount) ? " is-invalid" : ""}`}>
                     <span>₹</span>
                     <input
+                      ref={refs.amount}
                       inputMode="numeric"
                       autoFocus
                       value={customAmount}
                       placeholder={`${config.min_amount} or more`}
                       aria-label="Custom shagun amount in rupees"
+                      aria-invalid={!!shown("amount", customAmount)}
+                      aria-describedby="amount-hint"
                       onChange={(e) => setCustomAmount(e.target.value.replace(/[^\d]/g, "").slice(0, 6))}
                     />
                   </span>
-                  <span className="field-hint">
-                    {customAmount && amountError
-                      ? amountError
-                      : `Any amount from ${formatRupees(config.min_amount)} to ${formatRupees(config.max_amount)}.`}
-                  </span>
+                  {hint("amount", customAmount, `Any amount from ${formatRupees(config.min_amount)} to ${formatRupees(config.max_amount)}.`)}
                 </label>
               )}
             </fieldset>
@@ -255,10 +316,16 @@ export default function ReviewPage() {
             </section>
           )}
 
+          {attempted && missing.length > 0 && (
+            <p className="form-missing" role="alert">
+              Please fill in {missing.map((f) => FIELD_LABEL[f]).join(", ")} to continue.
+            </p>
+          )}
+
           {config && !config.payments_enabled ? (
             <p className="pay-problem" role="alert">Payments aren't available right now. Please try again later.</p>
           ) : (
-            <button className="btn btn-primary full" disabled={!ready || !config} onClick={pay}>
+            <button className="btn btn-primary full" disabled={busy || !config} onClick={pay}>
               {step ? STEP_LABEL[step] : `Pay ${total !== null ? formatRupees(total) : ""} & create link 🪔`}
             </button>
           )}
@@ -272,6 +339,11 @@ export default function ReviewPage() {
               {"orderId" in problem && <p className="order-ref">Order ID: {problem.orderId}</p>}
             </div>
           )}
+
+          <p className="pay-consent">
+            By paying, you agree to our <Link to="/terms">Terms</Link> and{" "}
+            <Link to="/refund">Refund Policy</Link> · Need help? <Link to="/contact">Contact us</Link>
+          </p>
 
           <p className="pay-secure">🔒 Secure payment by Cashfree · UPI, cards, netbanking &amp; wallets</p>
         </div>
